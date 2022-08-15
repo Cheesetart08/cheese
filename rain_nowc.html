@@ -1,0 +1,351 @@
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>高解像度降水ナウキャスト</title>
+  
+  
+  
+  
+<style>
+html {
+        touch-action: manipulation;
+      }
+
+
+      #map {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .leaflet-base-pane {
+      filter:grayscale(50%);    
+      }
+
+      #bottom_box {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        z-index: 500;
+      }
+
+
+     #text{
+        position: absolute;
+        background:#007d7d;
+        font-family: "BIZ UDGothic";
+        line-height: 1.5;
+        text-shadow: 
+         2px 2px 2px #000, 
+        -2px 2px 2px #000, 
+         2px -2px 2px #000,
+        -2px 2px 2px #000  ;
+        font-size: 45px;
+        color: #ffffff;
+        top: 10px;
+        left: 350px;
+        margin: 0;
+        padding: 0;
+        z-Index: 500;
+      }
+
+      #time {
+        position: absolute;
+        font-family: "Roboto","koruri";
+        font-size: 35px;
+        color: #fff;
+        top: 35px;
+        left: 375px;
+        z-index: 400;
+        font-weight: 500;
+        background:#000;
+        border-radius: 0px 0px 15px 15px;
+        padding: 10x;
+      }
+    #class1 {
+      position: absolute;
+        font-family: "Roboto","koruri";
+        bottom: 20px;
+        right: 5px;
+        width: 100px ;
+        height: 245px ;
+        z-index: 500;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+     #nuri {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        zIndex: 1;
+    background-color: #111155;
+}
+      .sousa_btn {
+        position: absolute;
+        bottom: 5px;
+        left: 125px;
+        z-index: 500;
+        touch-action: manipulation;
+      }
+
+      #aa {
+        display: inline-flex;
+        align-items: start;
+        position: absolute;
+        bottom: 5px;
+        left: 170px;
+        z-index: 800;
+      }
+
+      .leaflet-radar-pane {
+        filter: drop-shadow(0px 0px 2px #000) brightness(1.0);
+      }/
+</style>
+
+  
+  
+  
+  
+
+</head>
+
+<body translate="no" >
+  <html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="//unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+ </head>
+  <body>
+ 
+</body>
+  <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<svg id="class1" width="80" height="196" viewBox="0, 0, 240, 588">
+    <text x="12" y="48" font-family="koruri" font-size="36">降水強度</text>
+    <path d="M24 96 h 90 v 60 h -90 z"  fill="rgb(180,000,104)" stroke="none" />
+    <path d="M24 156 h 90 v 60 h -90 z" fill="rgb(255,040,000)" stroke="none" />
+    <path d="M24 216 h 90 v 60 h -90 z" fill="rgb(255,153,000)" stroke="none" />
+    <path d="M24 276 h 90 v 60 h -90 z" fill="rgb(255,245,000)" stroke="none" />
+    <path d="M24 336 h 90 v 60 h -90 z" fill="rgb(000,065,255)" stroke="none" />
+    <path d="M24 396 h 90 v 60 h -90 z" fill="rgb(033,140,255)" stroke="none" />
+    <path d="M24 456 h 90 v 60 h -90 z" fill="rgb(160,210,255)" stroke="none" />
+    <path d="M24 516 h 90 v 60 h -90 z" fill="rgb(242,242,255)" stroke="none" />
+    <path d="M24 96 h 90 v 480 h -90 z M24 156 h 90 M24 216 h 90 M24 276 h 90 M24 336 h 90 M24 396 h 90 M24 456 h 90 M24 516 h 90"  fill="none" stroke="#000" stroke-width="2" />
+    <text x="126" y="96" font-size="32">mm/h</text>
+    <text x="126" y="172" font-size="36">80</text>
+    <text x="126" y="232" font-size="36">50</text>
+    <text x="126" y="292" font-size="36">30</text>
+    <text x="126" y="352" font-size="36">20</text>
+    <text x="126" y="412" font-size="36">10</text>
+    <text x="126" y="472" font-size="36">5</text>
+    <text x="126" y="532" font-size="36">1</text>
+</svg>
+  <button class="sousa_btn" onclick="update()" id="update_btn">更新</button>
+</body></div></p>
+  <body>
+    <div id="map"></div>
+    <div id="nuri"></div>
+    <div id="text">
+    　🌧高解像度降水ナウキャスト　
+</div>
+    <p id="time"></p>
+    <div id="bottom_box">
+      <button onclick="back_tile()">◀戻る</button>
+      <button onclick="next_tile()">進む▶</button>
+  </body>
+</html>
+  
+  
+      <script id="rendered-js" >
+let map;
+let radar_conf = {
+  basetime: [],
+  validtime: [],
+  indx: -1,
+  layer: undefined,
+};
+
+$(window).on("load", function () {
+  map = L.map("map", {
+    zoomControl: true,
+    maxZoom: 10,
+    minZoom: 4,
+    inertiaDeceleration: 10000,
+    preferCanvas: true,
+  });
+  map.setView([37, 128], 5);
+  
+    map.createPane("base").style.zIndex = 80;
+  map.createPane("line2").style.zIndex = 90;
+  map.createPane("radar").style.zIndex = 100; 
+  map.createPane("aa").style.zIndex = 105;  
+  map.createPane("line").style.zIndex = 110;
+ map.createPane("linearband").style.zIndex = 120;  
+ 
+  //ベース地図読み込み
+L.tileLayer("https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png", {
+    attribution: "国土地理院",
+    pane: "base",
+    opacity: 1,
+  }).addTo(map);
+  
+   L.control.scale({maxWidth:200,position:'topright',imperial:false}).addTo(map);
+
+  map.attributionControl.addAttribution("Japan Meteorological Agency");
+ 
+
+  jma_radarload();
+});
+
+//雨雲レーダーJSON読み込み
+const RADAR_URL = ["//www.jma.go.jp/bosai/jmatile/data/nowc/", "/none/", "/surf/hrpns/{z}/{x}/{y}.png"];
+function jma_radarload() {
+  let tm = new Date().getTime();
+  $.getJSON("//www.jma.go.jp/bosai/jmatile/data/nowc/targetTimes_rad_N1.json?" + tm).done(function (data) {
+    data = data.reverse();
+
+    data.forEach((rdd) => {
+      radar_conf.basetime.push(rdd.basetime);
+      radar_conf.validtime.push(rdd.validtime);
+      radar_conf.indx++;
+    });
+
+    tile_load(radar_conf.indx);
+
+    timelabel_set(data[radar_conf.indx].validtime);
+  });
+}
+
+//時間を表示
+function timelabel_set(t) {
+  let year = t.slice(0, 4);
+  let month = t.slice(4, 6);
+  let day = t.slice(6, 8);
+  let hour = t.slice(8, 10);
+  let date = t.slice(10, 12);
+  let minutes = t.slice(12, 14);
+  let dt = new Date(`${year}/${month}/${day} ${hour}:${date}:${minutes}`);
+  dt.setHours(dt.getHours() + 9);
+
+  month = dt.getMonth() + 1;
+  if (month.toString().length == 1) month = "0" + month;
+  day = dt.getDate();
+  if (day.toString().length == 1) day = "0" + day;
+  hour = dt.getHours();
+  if (hour.toString().length == 1) hour = "0" + hour;
+  minutes = dt.getMinutes();
+  if (minutes.toString().length == 1) minutes = "0" + minutes;
+  $("#time").text(`　${dt.getFullYear()}-${month}-${day} ${hour}:${minutes}　`);
+}
+
+//前のタイルへ（0より前はデータがないためスルー）
+function back_tile() {
+  let nindex = radar_conf.indx - 1;
+  if (0 > nindex) return;
+  radar_conf.indx = nindex;
+  tile_load(nindex);
+}
+
+//次のタイルへ（次のindexに情報がなかったらスルー
+function next_tile() {
+  let nindex = radar_conf.indx + 1;
+  if (radar_conf.basetime.length <= nindex) return;
+  radar_conf.indx = nindex;
+  tile_load(nindex);
+}
+
+function tile_load(nindex) {
+  if (radar_conf.layer !== undefined) {
+    map.removeLayer(radar_conf.layer);
+  }
+
+  let ri = nindex;
+  radar_conf.layer = L.tileLayer(
+    `${RADAR_URL[0]}${radar_conf.basetime[ri]}${RADAR_URL[1]}${radar_conf.validtime[ri]}${RADAR_URL[2]}`,
+    {
+      maxZoom: 10,
+      minZoom: 4,
+      opacity: 1,
+      pane: "radar",
+    }
+  ).addTo(map);
+
+  timelabel_set(radar_conf.validtime[ri]);
+}
+
+$.getJSON("//tile.hachi508.com/map_json/japan_fuken.json")
+  .done(function(data){
+        let line_geoobje = topojson.feature(data, data.objects.japan_fuken);
+    fill_layer = L.geoJson(line_geoobje, {
+      style: function (feature) {
+        return {
+          fillColor: "transparent",
+          fillOpacity: 1,
+          opacity: 1,
+          weight: 0.5,
+          color: "#000000",
+          pane: "line",
+        };
+      },
+    }).addTo(map);
+  })
+
+$.getJSON("//tile.hachi508.com/map_json/japan_fuken.json")
+  .done(function(data){
+        let line_geoobje = topojson.feature(data, data.objects.japan_fuken);
+    fill_layer = L.geoJson(line_geoobje, {
+      style: function (feature) {
+        return {
+          fillColor: "#000",
+          fillOpacity: 0.25,
+          opacity: 0,
+          weight: 0,
+          color: "#000",
+          pane: "line2",
+        };
+      },
+    }).addTo(map);
+  })
+
+$.getJSON("//tile.hachi508.com/map_json/world.json")
+  .done(function(data){
+        let line_geoobje = topojson.feature(data, data.objects.world);
+    fill_layer = L.geoJson(line_geoobje, {
+      style: function (feature) {
+        return {
+          fillColor: "#555",
+          fillOpacity: 1,
+          opacity: 1,
+          weight: 0.5,
+          color: "#000000",
+          pane: "line2",
+        };
+      },
+    }).addTo(map);
+  })
+
+setInterval(jma_radarload, 100000);
+    </script>
+
+  
+
+</body>
+
+</html>
